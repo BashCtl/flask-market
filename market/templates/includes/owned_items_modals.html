@@ -1,0 +1,35 @@
+<style>
+  .modal-content {
+    background-color: #212121
+  }
+</style>
+
+<!-- Selling Confirm-->
+<div class="modal fade" id="sellingModal-{{ owned_item.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="purchaseModalLabel">{{ owned_item.name }}</h1>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">x</button>
+      </div>
+      <div class="modal-body">
+        <form method="POST">
+          {{ selling_form.hidden_tag() }}
+          <h4 class="text-center">
+             Are you sure you want to sell {{ owned_item.name }} for {{ owned_item.price }}$ ?
+          </h4>
+          <br>
+          <h6 class="text-center">
+            By clicking Sell, you will purchase this item.
+          </h6>
+          <br>
+          <input type="hidden" id="sold_item" name="sold_item" value="{{owned_item.name}}">
+          {{ selling_form.submit(class="btn btn-outline-danger btn-block") }}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

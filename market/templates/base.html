@@ -21,11 +21,16 @@
       <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                  <a class="nav-link" href="{{ url_for('home_page') }}">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="{{ url_for('market.home_page') }}">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('market_page') }}">Market</a>
+                  <a class="nav-link" href="{{ url_for('market.market_page') }}">Market</a>
               </li>
+              {% if current_user.is_admin %}
+                  <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('market.admin_page') }}">Administration</a>
+              </li>
+              {% endif %}
           </ul>
           {% if current_user.is_authenticated %}
              <ul class="navbar-nav">
@@ -39,16 +44,16 @@
                       <a class="nav-link">Welcome, {{ current_user.username }}</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('logout_page') }}">Logout</a>
+                      <a class="nav-link" href="{{ url_for('users.logout_page') }}">Logout</a>
                   </li>
               </ul>
           {% else %}
               <ul class="navbar-nav">
                   <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('login_page') }}">Login</a>
+                      <a class="nav-link" href="{{ url_for('users.login_page') }}">Login</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('register_page') }}">Register</a>
+                      <a class="nav-link" href="{{ url_for('users.register_page') }}">Register</a>
                   </li>
               </ul>
           {% endif %}

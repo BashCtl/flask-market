@@ -28,8 +28,10 @@ def create_app(app_configs=Config):
 
     from market.routers.market import market
     from market.routers.users import users
+    from market.routers.errors import errors
 
     app.register_blueprint(market)
     app.register_blueprint(users)
+    app.register_blueprint(errors)
 
     return app

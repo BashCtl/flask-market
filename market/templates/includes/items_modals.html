@@ -12,7 +12,7 @@
         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">x</button>
       </div>
       <div class="modal-body">
-        {{ item.description }}
+        {{ item.description|safe }}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

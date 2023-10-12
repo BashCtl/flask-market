@@ -22,7 +22,20 @@ def market_page():
 def admin_page():
     return MarketService.admin()
 
-@market.route("/market/new_item")
+
+@market.route("/market/admin/new_item", methods=["GET", "POST"])
 @login_required
-def add_product():
-    return MarketService.add_product()
+def new_item():
+    return MarketService.new_item()
+
+
+@market.route("/market/admin/edit_item/<int:item_id>", methods=["GET", "POST"])
+@login_required
+def edit_item(item_id):
+    return MarketService.edit_item(item_id)
+
+
+@market.route("/market/admin/delete_item/<int:item_id>", methods=["GET"])
+@login_required
+def delete_item(item_id):
+    return MarketService.delete_item(item_id)

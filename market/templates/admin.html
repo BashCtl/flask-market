@@ -5,7 +5,7 @@ Market Page
 {% block content %}
 <div class="container">
     <div class="mt-5">
-          <a class="btn btn-outline btn-info" href="{{ url_for('market.add_product') }}">Add New Product</a>
+          <a class="btn btn-outline btn-info" href="{{ url_for('market.new_item') }}">Add New Product</a>
     </div>
     <table class="table table-hover table-dark mt-5">
         <thead>
@@ -22,15 +22,17 @@ Market Page
         <tbody>
         <!-- Your rows inside the table HERE: -->
         {% for item in items %}
-        {% include 'includes/items_modals.html' %}
+         {% include 'includes/delete_item_modals.html' %}
         <tr>
             <td>{{item.id}}</td>
             <td>{{item.name}}</td>
             <td>{{item.barcode}}</td>
             <td>{{item.price}}$</td>
             <td>
-                <button class="btn btn-outline btn-info">Edit</button>
-                <button class="btn btn-outline btn-danger">Delete</button>
+                <a href="{{ url_for('market.edit_item', item_id=item.id ) }}" class="btn btn-outline btn-info mx-1">Edit</a>
+                <a type="button" class="btn btn-outline btn-danger" data-toggle="modal" data-target="#delete-{{ item.id }}">Delete</a>
+
+
             </td>
         </tr>
         {% endfor %}

@@ -53,6 +53,40 @@ class MarketService:
         return render_template("admin.html", items=items)
 
     @staticmethod
-    def add_product():
+    def new_item():
         form = ItemForm()
+        if request.method == "POST":
+            item = Item(name=form.item_name.data, barcode=form.barcode.data,
+                        price=form.price.data, description=form.description.data)
+            db.session.add(item)
+            db.session.commit()
+            flash("Item successfully added.", category="success")
+            return redirect(url_for("market.admin_page"))
         return render_template("new_item.html", form=form)
+
+    @staticmethod
+    def edit_item(item_id):
+        form = ItemForm()
+        item = Item.query.get_or_404(item_id)
+        if form.validate_on_submit():
+            item.name = form.item_name.data
+            item.barcode = form.barcode.data
+            item.price = form.price.data
+            item.description = form.description.data
+            db.session.commit()
+            flash("Item successfully updated.", category="success")
+            return redirect(url_for("market.admin_page"))
+        form.item_name.data = item.name
+        form.barcode.data = item.barcode
+        form.price.data = item.price
+        form.description.data = item.description
+        return render_template("edit_item.html", form=form, item=item)
+
+    @staticmethod
+    def delete_item(item_id):
+        item = Item.query.get_or_404(item_id)
+        if current_user.is_admin:
+            db.session.delete(item)
+            db.session.commit()
+            flash("Item Was Deleted!", category="success")
+            return redirect(url_for("market.admin_page"))

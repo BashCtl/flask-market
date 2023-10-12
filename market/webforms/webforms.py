@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_ckeditor import CKEditorField
 from wtforms import StringField, PasswordField, SubmitField, DecimalField, TextAreaField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
 from market.models.user_model import User
@@ -41,5 +42,5 @@ class ItemForm(FlaskForm):
     item_name = StringField(label="Item name")
     barcode = StringField(label="Barcode")
     price = DecimalField("Price $: ")
-    description = TextAreaField(label="Item description")
-    submit = SubmitField(label="Add item")
+    description = CKEditorField(label="Item description")
+    submit = SubmitField(label="Add Item")
